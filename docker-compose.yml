@@ -1,0 +1,21 @@
+
+services:
+  cudaopencv:
+    build: ./Opencv
+    container_name: cudaopencv
+    volumes:
+      - ./Opencv/Code:/app
+
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    dns:
+      - 8.8.8.8  # Google DNS primary
+      - 8.8.4.4  # Google DNS secondary
