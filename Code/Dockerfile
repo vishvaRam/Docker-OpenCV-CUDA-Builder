@@ -80,10 +80,7 @@ RUN cmake -D CMAKE_BUILD_TYPE=Release \
 RUN make -j$(nproc) && make install && ldconfig
 
 # Copy application code
-COPY Code /app
-
-# Install application dependencies
-# RUN pip3 install --no-cache-dir -r /app/requirements.txt
+COPY . /app
 
 # Set the working directory
 WORKDIR /app
