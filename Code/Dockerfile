@@ -1,5 +1,5 @@
 # Use NVIDIA CUDA base image with cuDNN
-FROM nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04
+FROM nvidia/cuda:12.6.3-cudnn-devel-ubuntu24.04
 
 # Set environment variables to disable interactive prompts
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -16,14 +16,14 @@ RUN apt-get update && \
     curl \
     build-essential \
     cmake \
-    gcc-10 \
-    g++-10 \
+    gcc \
+    g++ \
     pkg-config \
-    libgtk2.0-dev \
+    libgtk-3-dev \
     libavcodec-dev \
     libavformat-dev \
     libswscale-dev \
-    libtbb2 \
+    libtbb12 \
     libtbb-dev \
     libjpeg-dev \
     libpng-dev \
@@ -34,23 +34,23 @@ RUN apt-get update && \
     libx264-dev \
     libatlas-base-dev \
     gfortran \
-    python3.10 \
-    python3.10-dev \
-    python3.10-venv \
+    python3 \
+    python3-dev \
+    python3-venv \
     python3-pip && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Set Python 3.10 as the default
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1
+# Create symlink to make "python" command available
+RUN ln -s /usr/bin/python3 /usr/bin/python
 
 # Install OpenCV dependencies
-RUN pip3 install --no-cache-dir numpy==1.26.4
+RUN pip3 install --no-cache-dir --break-system-packages numpy==1.26.4
 
-# Clone OpenCV source code (non-interactive, avoid TTY)
+# Clone OpenCV source code from stable version (non-interactive, avoid TTY)
 WORKDIR /app
 
-RUN git clone --branch 4.x --depth 1 https://github.com/opencv/opencv.git && \
-    git clone --branch 4.x --depth 1 https://github.com/opencv/opencv_contrib.git
+RUN git clone --branch 4.10.0 --depth 1 https://github.com/opencv/opencv.git && \
+    git clone --branch 4.10.0 --depth 1 https://github.com/opencv/opencv_contrib.git
 
 # Create a build directory
 WORKDIR /app/opencv/build
@@ -89,7 +89,7 @@ COPY Code /app
 WORKDIR /app
 
 # Verify OpenCV installation
-RUN python3 -c "import cv2; print('OpenCV version:', cv2.__version__)"
+RUN python -c "import cv2; print('OpenCV version:', cv2.__version__)"
 
 # Set default command
-CMD ["python3", "main.py"]
+CMD ["python", "main.py"]

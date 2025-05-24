@@ -1,10 +1,10 @@
 
 services:
   cudaopencv:
-    build: ./Opencv
+    build: ./Code
     container_name: cudaopencv
     volumes:
-      - ./Opencv/Code:/app
+      - ./Code:/app
 
     deploy:
       resources:

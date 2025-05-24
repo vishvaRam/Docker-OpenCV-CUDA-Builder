@@ -8,13 +8,13 @@ sudo docker compose up -d
 # To watch the API 
 sudo docker compose logs -f
 
-sudo sudo docker-compose run -it whisper
+sudo sudo docker-compose run -it cudaopencv
 
 # For Terminal
-sudo docker exec -it whisper /bin/bash
+sudo docker exec -it cudaopencv /bin/bash
 sudo docker-compose down
 
-sudo docker restart whisper
+sudo docker restart cudaopencv
 
 # To clear Docker memory ( Delete all Docker images!!)
 sudo docker system prune
