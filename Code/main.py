@@ -9,7 +9,7 @@ def check_opencv_cuda():
         print("CUDA is enabled. Running a test...")
 
         # Create a random image
-        img = np.random.randint(0, 256, (512, 512, 3), dtype=np.uint8)
+        img =  np.random.randint(0, 256, (512, 512, 3), dtype=np.uint8)
 
         # Upload image to GPU
         gpu_img = cv2.cuda_GpuMat()
