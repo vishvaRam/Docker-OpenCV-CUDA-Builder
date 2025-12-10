@@ -1,11 +1,11 @@
 # OpenCV with CUDA Docker Setup
 
-This project provides a Docker-based environment for running OpenCV with CUDA support, enabling GPU-accelerated computer vision tasks. The setup includes a complete build of OpenCV 4.10.0 with CUDA 12.6.3 and cuDNN support.
+This project provides a Docker-based environment for running OpenCV with CUDA support, enabling GPU-accelerated computer vision tasks. The setup includes a complete build of OpenCV 4.12.0 with CUDA 12.8.1 and cuDNN support.
 
 ## Features
 
-- OpenCV 4.10.0 with CUDA support
-- CUDA 12.6.3 with cuDNN
+- OpenCV 4.12.0 with CUDA support
+- CUDA 12.8.1 with cuDNN
 - GPU-accelerated image processing
 - Pre-configured Docker environment
 - Example code demonstrating CUDA-enabled OpenCV operations
@@ -54,10 +54,10 @@ docker-compose up --build
 
 ## Technical Details
 
-- Base Image: NVIDIA CUDA 12.6.3 with cuDNN
-- OpenCV Version: 4.10.0
-- CUDA Architectures: 6.1, 7.0, 7.5, 8.0, 8.6, 8.9, 9.0
-- Python Version: 3.12.3
+- Base Image: NVIDIA CUDA 12.8.1 with cuDNN
+- OpenCV Version: 4.12.0
+- CUDA Architectures: 6.1, 7.0, 7.5, 8.0, 8.6, 8.9, 9.0, 10.0, 12.0 
+- Python Version: 3.12
 - Key Features:
   - CUDA acceleration
   - cuDNN support
