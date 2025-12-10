@@ -1,5 +1,5 @@
 # Use NVIDIA CUDA base image with cuDNN
-FROM nvidia/cuda:12.6.3-cudnn-devel-ubuntu24.04
+FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu24.04
 
 # Set environment variables to disable interactive prompts
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -49,8 +49,8 @@ RUN pip3 install --no-cache-dir --break-system-packages numpy==1.26.4
 # Clone OpenCV source code from stable version (non-interactive, avoid TTY)
 WORKDIR /app
 
-RUN git clone --branch 4.10.0 --depth 1 https://github.com/opencv/opencv.git && \
-    git clone --branch 4.10.0 --depth 1 https://github.com/opencv/opencv_contrib.git
+RUN git clone --branch 4.12.0 --depth 1 https://github.com/opencv/opencv.git && \
+    git clone --branch 4.12.0 --depth 1 https://github.com/opencv/opencv_contrib.git
 
 # Create a build directory
 WORKDIR /app/opencv/build
@@ -65,8 +65,8 @@ RUN cmake -D CMAKE_BUILD_TYPE=Release \
     -D WITH_CUBLAS=ON \
     -D OPENCV_DNN_CUDA=ON \
     -D WITH_CUDNN=ON \
-    -D CUDA_ARCH_BIN="6.1 7.0 7.5 8.0 8.6 8.9 9.0" \
-    -D CUDA_ARCH_PTX="9.0" \
+    -D CUDA_ARCH_BIN="6.1 7.0 7.5 8.0 8.6 8.7 8.9 9.0 10.0 12.0" \
+    -D CUDA_ARCH_PTX="12.0" \
     -D BUILD_EXAMPLES=OFF \
     -D BUILD_opencv_python3=ON \
     -D PYTHON_EXECUTABLE=$(which python3) \
@@ -86,7 +86,7 @@ COPY . /app
 WORKDIR /app
 
 # Verify OpenCV installation
-RUN python -c "import cv2; print('OpenCV version:', cv2.__version__)"
+RUN python -c "import cv2; print('OpenCV version:', cv2.__version__); print('CUDA enabled:', cv2.cuda.getCudaEnabledDeviceCount() > 0)"
 
 # Set default command
 CMD ["python", "main.py"]
